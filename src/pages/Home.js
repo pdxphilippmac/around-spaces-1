@@ -3,6 +3,7 @@ import FilterBar from "../components/FilterBar";
 import RestaurantList from "../components/RestaurantList";
 import Title from "../components/Title";
 import styled from "styled-components";
+import postAnalytics from "../api/analytics";
 
 const Main = styled.main`
   padding: 10px;
@@ -38,6 +39,18 @@ export default function Home({ history, location, toggleTheme }) {
     }
     setFilters(newFilters);
     history.push(`${location.pathname}?${params.toString()}`);
+    postAnalytics({
+      timestamp: Date(),
+      selectedFilter: newFilters[name]
+
+      // imgSrc:
+      //   "https://static.lieferando.de/images/restaurants/de/OPROO0P/logo_465x320.png",
+      // title: title,
+      // categories: ["pizza", "salad", "pasta"],
+      // distance: 6,
+      // rating: 3.1,
+      // description: "Eat italian"
+    });
   }
 
   return (
